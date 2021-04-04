@@ -7,7 +7,9 @@ import {
   QueryList,
   ViewChild, 
   AfterViewInit,
-  AfterContentChecked
+  AfterContentChecked,
+  ViewChildren,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { AuthRememberComponent } from './auth-remember.component';
@@ -37,23 +39,22 @@ import { User } from './auth-form.interface';
     </div>
   `
 })
-export class AuthFormComponent implements AfterContentInit {
+export class AuthFormComponent implements AfterContentInit,AfterViewInit {
   showMessage: boolean = false;
 
-  @ViewChild(AuthMessageComponent) message: AuthMessageComponent;
+  @ViewChildren(AuthMessageComponent) message: QueryList<AuthMessageComponent>;
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
   @ContentChildren(AuthRememberComponent) remember: QueryList<AuthRememberComponent>;
+
+
+  constructor(private cd: ChangeDetectorRef) {}
 
   onSubmit(value: User) {
     this.submitted.emit(value);
   }
 
   ngAfterContentInit() {
-    console.log(this.message)
-    if (this.message) {
-      this.message.days = 31;
-    }
-    if (this.remember) {
+      if (this.remember) {
       this.remember.forEach((item) => {
         item.checked.subscribe(checked => this.showMessage = checked);
       })
@@ -61,6 +62,15 @@ export class AuthFormComponent implements AfterContentInit {
       //   this.showMessage = checked;
       // });
     }
+  }
+
+  ngAfterViewInit() {
+    console.log(this.message)
+    this.message.forEach((item) => {
+      item.days = 31;
+    });
+
+    this.cd.detectChanges();
   }
 
 }
