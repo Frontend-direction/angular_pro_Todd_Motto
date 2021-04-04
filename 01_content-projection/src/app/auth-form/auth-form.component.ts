@@ -16,6 +16,7 @@ import { User } from './auth-form.interface';
           Password
           <input type="password" name="password" ngModel>
         </label>
+        <ng-content selector="auth-remember"></ng-content>
         <ng-content select="button"></ng-content>
       </form>
     </div>
