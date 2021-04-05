@@ -5,10 +5,12 @@ import { AuthFormModule } from './auth-form/auth-form.module';
 
 import { AppComponent } from './app.component';
 import { AuthFormComponent } from './auth-form/auth-form.component';
+import { TemplateRefComponent } from './template-ref/template-ref.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TemplateRefComponent
   ],
   imports: [
     BrowserModule,
