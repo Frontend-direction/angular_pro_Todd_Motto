@@ -6,6 +6,11 @@ import { Component, OnInit, ViewChild, AfterContentInit, AfterViewInit, ViewCont
   styleUrls: ['./template-ref.component.scss']
 })
 export class TemplateRefComponent implements OnInit, AfterViewInit {
+  ctx = {
+    $implicit: 'Vova Pankiv',
+    location: 'Lviv, Ukraine',
+  }
+
   @ViewChild('entry', { read: ViewContainerRef}) entry: ViewContainerRef;
   @ViewChild('tmpl') tmpl: TemplateRef<any>;
 
@@ -15,8 +20,9 @@ export class TemplateRefComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('tmol', this.entry);
-    // this.entry.createEmbeddedView(this.tmpl);
-    this.entry.createEmbeddedView(this.tmpl)
+    // this.entry.createEmbeddedView(this.tmpl, {
+    //   $implicit: 'Vova Pankiv',
+    //   location: "Lviv, Ukraine",
+    // })
   }
 }

@@ -1,9 +1,16 @@
 <div style="margin-top:50px">
   <h1>TEMPLATE MANIPULATION</h1>
-  <div>
+  <!-- <div>
     <div #entry></div>
-    <ng-template #tmpl>
-      Vova pankiv Lviv Ukraine
+    <ng-template let-name let-location="location" #tmpl>
+      {{ name }}: {{ location }}
     </ng-template>
-  </div>
+  </div> -->
+  <ng-container
+    [ngTemplateOutlet]="tmpl"
+    [ngTemplateOutletContext]="ctx"
+  ></ng-container>
+  <ng-template #tmpl let-name let-location="location">
+     {{ name }} : {{ location }}
+  </ng-template> 
 </div>
