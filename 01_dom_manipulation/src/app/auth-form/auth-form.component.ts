@@ -9,7 +9,9 @@ import {
   AfterViewInit,
   AfterContentChecked,
   ViewChildren,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ElementRef,
+  Renderer2
 } from '@angular/core';
 
 import { AuthRememberComponent } from './auth-remember.component';
@@ -24,7 +26,7 @@ import { User } from './auth-form.interface';
         <ng-content select="h3"></ng-content>
         <label>
           Email address
-          <input type="email" name="email" ngModel>
+          <input type="email" name="email" ngModel #email>
         </label>
         <label>
           Password
@@ -39,21 +41,27 @@ import { User } from './auth-form.interface';
     </div>
   `
 })
-export class AuthFormComponent implements AfterContentInit,AfterViewInit {
+export class AuthFormComponent implements AfterContentInit,AfterViewInit, AfterContentChecked {
   showMessage: boolean = false;
 
+  @ViewChild('email') email:ElementRef;
   @ViewChildren(AuthMessageComponent) message: QueryList<AuthMessageComponent>;
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
   @ContentChildren(AuthRememberComponent) remember: QueryList<AuthRememberComponent>;
 
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(
+    private cd: ChangeDetectorRef,
+    private renderer: Renderer2,
+    ) {}
 
   onSubmit(value: User) {
     this.submitted.emit(value);
   }
 
   ngAfterContentInit() {
+    this.renderer.setAttribute(this.email.nativeElement, 'placeholder', 'Enter your email');
+    this.renderer.addClass(this.email.nativeElement, 'email');
       if (this.remember) {
       this.remember.forEach((item) => {
         item.checked.subscribe(checked => this.showMessage = checked);
@@ -64,8 +72,11 @@ export class AuthFormComponent implements AfterContentInit,AfterViewInit {
     }
   }
 
+  ngAfterContentChecked() {
+    console.log(this.email)
+  }
+
   ngAfterViewInit() {
-    console.log(this.message)
     this.message.forEach((item) => {
       item.days = 31;
     });
