@@ -1,5 +1,5 @@
 export interface File {
   fileName: string;
-  size: number;
+  size: any;
   type: string;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { File } from './my-pipe/file.inteface';
+import { FileSizePipe } from './my-pipe/filesize.pipe';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,15 @@ import { File } from './my-pipe/file.inteface';
         </ng-template>
       </ul>
       <hr>
-      <div *ngFor="let file of files">
+      <div *ngFor="let file of mapped">
         <p>{{ file.fileName }}</p>
-        <p>{{ file.size | filesize }}</p>
+        <p>{{ file.size }}</p>
       </div>
     </div>
-  `
+  `,
+  providers: [
+    FileSizePipe,
+  ]
 })
 export class AppComponent implements OnInit {
   items = [{
@@ -39,11 +43,12 @@ export class AppComponent implements OnInit {
   }];
 
   files: File[];
-  // constructor() {
-  //   setTimeout(() => {
-  //     this.items = [...this.items, { name: 'Matt Skiba', age: 40, location: 'California' }];
-  //   }, 2000);
-  // }
+  mapped: File[];
+  constructor(
+    private fileSizePipe: FileSizePipe,
+  ) {
+
+  }
 
   ngOnInit() {
     this.files = [
@@ -51,5 +56,13 @@ export class AppComponent implements OnInit {
       { fileName: 'banner.jpg', size: 18029, type: 'image/jpg' },
       { fileName: 'background.png', size: 1784562, type: 'image/png' }
     ];
+
+    this.mapped = this.files.map(el => {
+      return {
+        fileName: el.fileName,
+        type: el.type,
+        size: this.fileSizePipe.transform(el.size),
+      }
+    })
   }
 }
