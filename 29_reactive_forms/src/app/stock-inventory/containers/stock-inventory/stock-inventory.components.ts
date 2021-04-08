@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Product } from '../../models/product.interface';
 
 @Component({
@@ -15,9 +15,11 @@ import { Product } from '../../models/product.interface';
         <app-stock-selector
           [parent]="form"
           [products]="products"
+          (added)="addStock($event)"
         ></app-stock-selector>
         <app-stock-products
           [parent]="form"
+          (removed)="removeStock($event)"
         ></app-stock-products>
 
         <div class="stock-inventory__buttons">
@@ -43,26 +45,36 @@ export class StockInventoryComponent {
     { "id": 5, "price": 600, "name": "Apple Watch" },
   ];
 
-  form = new FormGroup({
-    store: new FormGroup({
-      branch: new FormControl(''),
-      code: new FormControl(''),
+  form = this.fb.group({
+    store: this.fb.group({
+      branch: '',
+      code: '',
     }),
-    selector: new FormGroup({
-      product_id: new FormControl(),
-      quantity: new FormControl(),
-    }),
-    stock: new FormArray([
+    selector: this.createStock({}),
+    stock: this.fb.array([
       this.createStock({ product_id: 1, quantity: 50 }),
       this.createStock({ product_id: 2, quantity: 20 }),
     ]),
   });
 
+  constructor(private fb: FormBuilder) {}
+
   createStock(stock) {
-    return new FormGroup({
-      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
-      quantity: new FormControl(stock.quantity || 10)
+    return this.fb.group({
+      product_id: parseInt(stock.product_id, 10) || '',
+      quantity: stock.quantity || 10
     })
+  }
+
+  addStock(event) {
+    const control = this.form.get('stock') as FormArray;
+    control.push(this.createStock(event));
+  }
+
+  removeStock({ item, index }: { item: FormGroup, index: number } ) {
+    console.log(item, index)
+    const control = this.form.get('stock') as FormArray;
+    control.removeAt(index);
   }
 
   onSubmit() {

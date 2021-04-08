@@ -13,7 +13,10 @@
           min="10"
           max="1000"
           formControlName="quantity">
-        <button type="button">
+        <button 
+          type="button"
+          (click)="onRemoved(item, i)"
+        >
           Remove
         </button>
       </div>
