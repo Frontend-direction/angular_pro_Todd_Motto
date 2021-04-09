@@ -31,6 +31,14 @@ export class InMemoryDataService implements InMemoryDbService {
       { "product_id": 1, "quantity": 10 },
       { "product_id": 3, "quantity": 50 }
     ]
-    return {stock, cart, products};
+
+    const branches = [
+      { "id": "B182" },
+      { "id": "A779" },
+      { "id": "C390" },
+      { "id": "R262" }
+    ]
+
+    return {stock, cart, products, branches};
   }
 }

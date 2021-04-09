@@ -29,4 +29,11 @@ parent: FormGroup
     );
   }
 
+  get unknown() {
+    return (
+      this.parent.get('store.branch').hasError('unknownBranch') &&
+      this.parent.get('store.branch').dirty
+    );
+  }
+
 }

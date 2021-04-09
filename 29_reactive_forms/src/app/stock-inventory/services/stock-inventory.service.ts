@@ -25,4 +25,12 @@ export class StockInventoryService {
       map((response: Response) => response)
     )
   }
+
+  checkBranchId(id: string): Observable<boolean> {
+    return this.http
+      .get('/api/branches', { params: { id: id }})
+      .pipe(
+        map((response: any) => !!response.length)
+        )
+  }
 }
