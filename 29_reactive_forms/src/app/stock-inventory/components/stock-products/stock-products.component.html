@@ -5,7 +5,10 @@
     >
       <div class="stock-product__content" [formGroupName]="i">
         <div class="stock-product__name">
-          {{ item.value.product_id }}
+          {{ getProduct(item.value.product_id).name }}
+        </div>
+        <div class="stock-product__price">
+          {{ getProduct(item.value.product_id).price | currency: 'USD':true }}
         </div>
         <input 
           type="number"
