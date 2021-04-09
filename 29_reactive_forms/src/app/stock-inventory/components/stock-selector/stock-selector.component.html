@@ -1,5 +1,5 @@
 <div class="stock-product" [formGroup]="parent">
-  <div formGroupName="selector">
+  <div formGroupName="selector" class="stock-product__wrraper">
     <select formControlName="product_id">
         <option value="">
           Select item
@@ -17,10 +17,16 @@
     ></app-stock-counter>
 
     <button
+    [disabled]="stockExists || notSelected"
      type="button"
      (click)="onAdd()"
     >
       Add to stock
     </button>
+    <div
+      class="stock-selector__error"
+      *ngIf="stockExists">
+      Item already exists in the stock
+    </div>
   </div>
 </div>
