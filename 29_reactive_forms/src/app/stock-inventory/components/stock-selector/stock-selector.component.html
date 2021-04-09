@@ -1,6 +1,9 @@
 <div class="stock-product" [formGroup]="parent">
   <div formGroupName="selector">
     <select formControlName="product_id">
+        <option value="">
+          Select item
+        </option>
         <option
           *ngFor="let product of products"
           [value]="product.id"
@@ -9,13 +12,9 @@
         </option>
     </select>
 
-    <input
+    <app-stock-counter
       formControlName="quantity"
-      type="number"
-      min="10"
-      max="1000"
-      step="10"
-    >
+    ></app-stock-counter>
 
     <button
      type="button"

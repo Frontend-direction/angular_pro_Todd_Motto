@@ -25,6 +25,10 @@ import { StockInventoryService } from '../../services/stock-inventory.service';
           (removed)="removeStock($event)"
         ></app-stock-products>
 
+        <div>
+          {{ total | currency:"USD":true}}
+        </div>
+
         <div class="stock-inventory__buttons">
           <button 
             type="submit"
@@ -42,6 +46,8 @@ export class StockInventoryComponent implements OnInit {
   productMap: Map<number, Product>;
 
   products: Product[];
+
+  total: number;
 
   form = this.fb.group({
     store: this.fb.group({
@@ -70,9 +76,20 @@ export class StockInventoryComponent implements OnInit {
         this.productMap = new Map<number, Product>(myMap);
         this.products = products;
         cart.forEach(item => this.addStock(item));
+        
+        this.calculateTotal(this.form.get('stock').value);
+        this.form.get('stock')
+        .valueChanges
+        .subscribe(val => this.calculateTotal(val))
       });
       
     }
+  
+  calculateTotal(value: Item[]) {
+    const total = value.reduce((prev, next) => prev + (next.quantity * this.productMap.get(next.product_id).price), 0);
+    this.total= total;
+  }
+
   createStock(stock) {
     return this.fb.group({
       product_id: parseInt(stock.product_id, 10) || '',
