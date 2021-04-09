@@ -15,4 +15,18 @@ parent: FormGroup
   ngOnInit(): void {
   }
 
+
+  required(name) {
+    return this.parent.get(`store.${name}`).hasError('required')
+    && this.parent.get(`store.${name}`).touched;
+  }
+
+  get invalid() {
+    return (
+      this.parent.get('store.branch').hasError('invalidBranch') &&
+      this.parent.get('store.branch').dirty && 
+      !this.required('branch')
+    );
+  }
+
 }
