@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, CustomPreload } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MailModule } from './mail/mail.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { InMemoryDataService } from './mail/services/memory.service';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
-  providers: [],
+  providers: [CustomPreload],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
