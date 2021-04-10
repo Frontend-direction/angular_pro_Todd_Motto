@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./mail-view.component.scss']
 })
 export class MailViewComponent implements OnInit {
+  reply = '';
 
   message: Observable<any> = this.route.data
   .pipe(map(d => d.message))
@@ -19,6 +20,17 @@ export class MailViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(() => {
+      this.reply = '';
+    });
+  }
+
+  updateReply(value: string) {
+    this.reply = value;
+  }
+
+  sendReply() {
+    console.log('Sent!', this.reply);
   }
 
 }

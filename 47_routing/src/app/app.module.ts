@@ -7,6 +7,7 @@ import { MailModule } from './mail/mail.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './mail/services/memory.service';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { InMemoryDataService } from './mail/services/memory.service';
     MailModule,
     AppRoutingModule,
     HttpClientModule,
+    AuthModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
   providers: [CustomPreload],

@@ -3,6 +3,7 @@ import { RouterModule, Routes, Route, PreloadingStrategy } from '@angular/router
 
 import { Observable } from 'rxjs';
 import { of } from 'rxjs'; 
+import { AuthGuard } from './auth/auth.guard';
 
 export class CustomPreload implements PreloadingStrategy {
   preload(route: Route, fn: () => Observable<any>): Observable<any> {
@@ -12,7 +13,7 @@ export class CustomPreload implements PreloadingStrategy {
 
 const routes: Routes = [
   {
-    path: 'dashboard', data: { preload: false }, loadChildren:  () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    path: 'dashboard', canLoad: [AuthGuard],data: { preload: false }, loadChildren:  () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   { 
     path: '**', 
