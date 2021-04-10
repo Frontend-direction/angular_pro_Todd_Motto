@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class MailViewComponent implements OnInit {
   reply = '';
+  hasUnsavedChanges: boolean = false;
 
   message: Observable<any> = this.route.data
   .pipe(map(d => d.message))
@@ -22,15 +23,18 @@ export class MailViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(() => {
       this.reply = '';
+      this.hasUnsavedChanges = false;
     });
   }
 
   updateReply(value: string) {
     this.reply = value;
+    this.hasUnsavedChanges = true;
   }
 
   sendReply() {
     console.log('Sent!', this.reply);
+    this.hasUnsavedChanges = false;
   }
 
 }
