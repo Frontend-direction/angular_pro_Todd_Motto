@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MailModule } from './mail/mail.module';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './mail/services/memory.service';
+
 
 @NgModule({
   declarations: [
@@ -11,8 +15,10 @@ import { MailModule } from './mail/mail.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     MailModule,
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
   providers: [],
   bootstrap: [AppComponent]

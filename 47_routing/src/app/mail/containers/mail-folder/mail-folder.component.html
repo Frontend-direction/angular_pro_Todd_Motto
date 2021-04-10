@@ -1,5 +1,5 @@
-<h2>Inbox</h2>
-    <mail-item
-      *ngFor="let message of messages"
+<h2>{{ title | async }}</h2>
+    <app-mail-item
+      *ngFor="let message of (messages | async)"
       [message]="message">
-    </mail-item>
+    </app-mail-item>
