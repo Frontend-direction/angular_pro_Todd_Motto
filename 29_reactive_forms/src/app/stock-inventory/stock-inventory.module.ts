@@ -27,7 +27,8 @@ import { StockCounterComponent } from './components/stock-counter/stock-counter.
     StockInventoryService,
   ],
   exports: [
-    StockInventoryComponent
+    StockInventoryComponent,
+    StockCounterComponent
   ]
 })
 export class StockInventoryModule {}

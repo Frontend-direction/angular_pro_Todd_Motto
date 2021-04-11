@@ -5,44 +5,12 @@ import { Product, Item } from '../../models/product.interface';
 import { StockInventoryService } from '../../services/stock-inventory.service';  
 import { StockValidators } from './stock-inventory.validators';
 import { map, tap } from 'rxjs/operators';
+import { StockCounterComponent } from '../../components/stock-counter/stock-counter.component'
 
 @Component({
   selector: 'stock-inventory',
   styleUrls: ['stock-inventory.component.scss'],
-  template: `
-    <div class="stock-inventory">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-        <app-stock-branch
-          [parent]="form"
-        ></app-stock-branch>
-        <app-stock-selector
-          [parent]="form"
-          [products]="products"
-          (added)="addStock($event)"
-        ></app-stock-selector>
-        <app-stock-products
-          [parent]="form"
-          [map]="productMap"
-          (removed)="removeStock($event)"
-        ></app-stock-products>
-
-        <div>
-          {{ total | currency:"USD":true}}
-        </div>
-
-        <div class="stock-inventory__buttons">
-          <button 
-            type="submit"
-            [disabled]="form.invalid">
-            Order stock
-          </button>
-        </div>
-
-        <pre>{{ form.value | json }}</pre>
-      </form>
-    </div>
-  `
+  templateUrl: 'stock-inventory.component.html',
 })
 export class StockInventoryComponent implements OnInit {
   productMap: Map<number, Product>;
