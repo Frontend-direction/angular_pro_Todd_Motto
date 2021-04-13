@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '../../../store';
 
 @Component({
   selector: 'app-songs-favourites',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SongsFavouritesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
   }

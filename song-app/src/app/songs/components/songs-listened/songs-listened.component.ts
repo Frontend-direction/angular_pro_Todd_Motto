@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Store } from '../../../store';
+
 @Component({
   selector: 'app-songs-listened',
   templateUrl: './songs-listened.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SongsListenedComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
   }
