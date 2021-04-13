@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '../../../store';
+import { SongsService } from '../../services/songs.service';
 
 @Component({
   selector: 'app-songs-playlist',
@@ -8,11 +10,21 @@ import { Store } from '../../../store';
 })
 export class SongsPlaylistComponent implements OnInit {
 
+  playlist$: Observable<any[]>;
+  subscription: Subscription;
+
   constructor(
-    private store: Store
+    private store: Store,
+    private songsService: SongsService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.playlist$ = this.store.select('playlist');
+    this.subscription = this.songsService.getPlaylist$.subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
