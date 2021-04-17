@@ -4,6 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '../../store';
 import { map, tap } from 'rxjs/operators';
 
+export interface Song {
+  id: number,
+  name: string,
+  listened: boolean,
+  favourite: boolean,
+  artist: string,
+  track: string
+}
+
 @Injectable()
 export class SongsService {
 
