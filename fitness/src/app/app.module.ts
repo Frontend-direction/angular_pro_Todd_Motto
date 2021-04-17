@@ -30,3 +30,15 @@ export const ROUTES: Routes = [];
   ]
 })
 export class AppModule {}
+
+/*
+ var firebaseConfig = {
+    apiKey: "AIzaSyC0Al29L1oI9OyRwS8nINnEVXipEZSWx1E",
+    authDomain: "fitness-app-58c0b.firebaseapp.com",
+    databaseURL: "https://fitness-app-58c0b-default-rtdb.firebaseio.com",
+    projectId: "fitness-app-58c0b",
+    storageBucket: "fitness-app-58c0b.appspot.com",
+    messagingSenderId: "304258463680",
+    appId: "1:304258463680:web:85118a28efea17ac61fa25"
+  };
+  */
