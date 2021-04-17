@@ -1,6 +1,7 @@
 <div class="songs">
   <app-songs-list
-    [list]="playlist$ | async">
+    [list]="playlist$ | async"
+    (toggle)="onToggle($event)">
     Playlist
   </app-songs-list>
 </div>

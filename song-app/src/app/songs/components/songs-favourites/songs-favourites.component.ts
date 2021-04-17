@@ -26,4 +26,8 @@ export class SongsFavouritesComponent implements OnInit {
     )
   }
 
+  onToggle(event) {
+    this.songsService.toggle(event);
+  }
+
 }

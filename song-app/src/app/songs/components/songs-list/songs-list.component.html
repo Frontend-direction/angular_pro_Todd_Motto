@@ -8,11 +8,13 @@
       <span>{{ item.track }}</span>
       <div
         class="songs-list__favourite"
-        [class.active]="item.favourite">
+        [class.active]="item.favourite"
+        (click)="toggleItem(i, 'favourite')">
       </div>
       <div
         class="songs-list__listened"
-        [class.active]="item.listened">
+        [class.active]="item.listened"
+        (click)="toggleItem(i, 'listened')">
       </div>
     </li>
   </ul>

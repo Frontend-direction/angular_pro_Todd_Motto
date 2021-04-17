@@ -22,7 +22,12 @@ export class SongsListenedComponent implements OnInit {
     this.listened$ = this.store.select('playlist')
     .pipe(
       filter(Boolean),
-      map((playlist : []) => playlist.filter((track: any) => track.favourite))
+      map((playlist : []) => playlist.filter((track: any) => track.listened))
     )
+  }
+  
+  onToggle(event) {
+    console.log(event)
+    this.songsService.toggle(event);
   }
 }

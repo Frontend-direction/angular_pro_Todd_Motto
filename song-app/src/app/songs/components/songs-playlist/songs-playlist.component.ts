@@ -27,4 +27,8 @@ export class SongsPlaylistComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  onToggle(event) {
+    this.songsService.toggle(event);
+  }
+
 }
