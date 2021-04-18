@@ -30,12 +30,13 @@ export const ROUTES: Routes = [
 ];
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCXz7GrHLBs-xlsCrr185iG4v4UrNreq2Y",
-  authDomain: "fitness-app-e668a.firebaseapp.com",
-  databaseURL: "https://fitness-app-e668a.firebaseio.com",
-  projectId: "fitness-app-e668a",
-  storageBucket: "fitness-app-e668a.appspot.com",
-  messagingSenderId: "1014564696462"
+  apiKey: "AIzaSyC0Al29L1oI9OyRwS8nINnEVXipEZSWx1E",
+  authDomain: "fitness-app-58c0b.firebaseapp.com",
+  databaseURL: "https://fitness-app-58c0b-default-rtdb.firebaseio.com",
+  projectId: "fitness-app-58c0b",
+  storageBucket: "fitness-app-58c0b.appspot.com",
+  messagingSenderId: "304258463680",
+  appId: "1:304258463680:web:85118a28efea17ac61fa25"
 };
 
 @NgModule({
