@@ -42,4 +42,14 @@ export class MealsService {
     );
   }
 
+  async addMeal(meal: Meal) {
+    const user = await this.authService.user;
+    return this.db.list(`meals/${user.uid}`).push(meal);
+  }
+
+  async removeMeal(key: string) {
+    const user = await this.authService.user;
+    return this.db.list(`meals/${user.uid}`).remove(key);
+  }
+
 } 

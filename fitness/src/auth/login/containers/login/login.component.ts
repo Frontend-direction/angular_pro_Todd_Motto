@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     const { email, password } = event.value;
     try {
       const user = await this.authService.loginUser(email, password);
-      console.log(user)
       this.router.navigate(['/']);
     } catch (err) {
       this.error = err.message;
