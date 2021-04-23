@@ -31,6 +31,6 @@ export class MealsComponent implements OnInit {
   }
 
   removeMeal(event: Meal) {
-    this.mealsService.removeMeal(event.$key);
+    this.mealsService.removeMeal(event.key);
   }
 }
