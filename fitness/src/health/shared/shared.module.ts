@@ -8,6 +8,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabase } from '@angular/fire/database';
 
 import { MealsService } from './services/meals/meals.service';
+import { WorkoutService } from './services/workout/workout.service';
 import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
@@ -29,7 +30,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        MealsService
+        MealsService,
+        WorkoutService,
       ]
     };
   }

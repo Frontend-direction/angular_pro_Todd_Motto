@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Store } from 'store';
+
+import { Observable, Subscription } from 'rxjs';
+
+import { Workout, WorkoutService } from '../../../shared/services/workout/workout.service';
 
 @Component({
   selector: 'app-workouts',
@@ -7,9 +13,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutsComponent implements OnInit {
 
-  constructor() { }
+  workouts$: Observable<Workout[]>;
+  subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(
+    private store: Store,
+    private workoutsService: WorkoutService
+  ) {}
+
+  ngOnInit() {
+    this.workouts$ = this.store.select<Workout[]>('workouts');
+    this.subscription = this.workoutsService.workouts$.subscribe();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  removeWorkout(event: Workout) {
+    this.workoutsService.removeWorkout(event.key);
+  }
+
 
 }
