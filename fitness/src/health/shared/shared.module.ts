@@ -14,6 +14,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 // Pipes
 import { JoinPipe } from '../shared/pipes/join.pipe';
 import { WorkoutPipe } from '../shared/pipes/workout.pipe';
+import { ScheduleService } from './services/schedule/shedule.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ export class SharedModule {
       providers: [
         MealsService,
         WorkoutService,
+        ScheduleService,
       ]
     };
   }
