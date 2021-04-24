@@ -6,10 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 // containers
 import { SheduleComponent } from './containers/shedule/shedule.component';
 
+// shared modules
+import { SharedModule } from '../shared/shared.module';
+
 // components
 import { ScheduleCalendarComponent } from './components/schedule-calendar/schedule-calendar.component';
 import { ScheduleDaysComponent } from './components/schedule-days/schedule-days.component';
 import { ScheduleControlsComponent } from './components/schedule-controls/schedule-controls.component';
+import { ScheduleSectionComponent } from './components/schedule-section/schedule-section.component';
 
 export const ROUTES: Routes = [
   { path: '', component: SheduleComponent }
@@ -19,13 +23,15 @@ export const ROUTES: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    SharedModule,
   ],
   declarations: [
     SheduleComponent,
     ScheduleCalendarComponent,
     ScheduleDaysComponent,
-    ScheduleControlsComponent
+    ScheduleControlsComponent,
+    ScheduleSectionComponent
   ]
 })
 export class ScheduleModule {}

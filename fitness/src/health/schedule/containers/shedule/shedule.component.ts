@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { Store } from 'store';
-import { ScheduleService } from '../../../shared/services/schedule/shedule.service';
+import { ScheduleItem, ScheduleService } from '../../../shared/services/schedule/shedule.service';
 
 
 @Component({
@@ -13,6 +13,7 @@ import { ScheduleService } from '../../../shared/services/schedule/shedule.servi
 export class SheduleComponent implements OnInit, OnDestroy {
 
   date$: Observable<Date>;
+  schedule$: Observable<ScheduleItem[]>;
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -22,6 +23,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.date$ = this.store.select('date');
+    this.schedule$ = this.store.select('schedule');
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
