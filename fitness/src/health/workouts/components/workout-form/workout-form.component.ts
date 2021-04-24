@@ -26,7 +26,17 @@ export class WorkoutFormComponent {
   remove = new EventEmitter<Workout>();
 
   form = this.fb.group({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
+    type: 'strength',
+    strength: this.fb.group({
+      reps: 0,
+      sets: 0,
+      weight: 0
+    }),
+    endurance: this.fb.group({
+      distance: 0,
+      duration: 0
+    })
   });
   
   constructor(
@@ -34,27 +44,12 @@ export class WorkoutFormComponent {
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    // if (this.meal && this.meal.name) {
-    //   this.exists = true;
-    //   this.emptyIngredients();
-
-    //   const value = this.meal;
-    //   this.form.patchValue(value);
-
-    //   if (value.ingredients) {
-    //     for (const item of value.ingredients) {
-    //       this.ingredients.push(new FormControl(item));
-    //     }
-    //   }
-
-    // }
+    if (this.workout && this.workout.name) {
+      this.exists = true;
+      const value = this.workout;
+      this.form.patchValue(value);
+    }
   }
-
-  // emptyIngredients() {
-  //   while(this.ingredients.controls.length) {
-  //     this.ingredients.removeAt(0);
-  //   }
-  // }
 
   get required() {
     return (
@@ -63,17 +58,9 @@ export class WorkoutFormComponent {
     );
   }
 
-  // get ingredients() {
-  //   return this.form.get('ingredients') as FormArray;
-  // }
-
-  // addIngredient() {
-  //   this.ingredients.push(new FormControl(''));
-  // }
-
-  // removeIngredient(index: number) {
-  //   this.ingredients.removeAt(index);
-  // }
+  get placeholder() {
+    return `e.g. ${this.form.get('type').value === 'strength' ? 'Benchpress' : 'Treadmill'}`;
+  }
 
   createWorkout() {
     if (this.form.valid) {

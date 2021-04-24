@@ -1,7 +1,7 @@
 <div class="workout">
   <div class="workout__title">
     <h1>
-      <img src="/img/workout.svg">
+      <img src="/assets/img/workout.svg">
       <span *ngIf="workout$ | async as workout; else title;">
         {{ workout.name ? 'Edit' : 'Create' }} workout
       </span>
@@ -20,7 +20,7 @@
   </div>
   <ng-template #loading>
     <div class="message">
-      <img src="/img/loading.svg">
+      <img src="/assets/img/loading.svg">
       Fetching workout...
     </div>
   </ng-template>
