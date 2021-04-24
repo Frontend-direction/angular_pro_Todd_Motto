@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-schedule-days',
   templateUrl: './schedule-days.component.html',
   styleUrls: ['./schedule-days.component.scss']
 })
-export class ScheduleDaysComponent implements OnInit {
+export class ScheduleDaysComponent {
 
-  constructor() { }
+  days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  
+  @Input()
+  selected: number;
 
-  ngOnInit(): void {
+  @Output()
+  select = new EventEmitter<number>();
+
+  selectDay(index: number) {
+    this.select.emit(index);
   }
 
 }
