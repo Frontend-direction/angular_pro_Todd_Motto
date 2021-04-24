@@ -4,7 +4,7 @@ import { Store } from 'store';
 
 import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { tap, map, switchMap } from 'rxjs/operators';
 
 import { Meal } from '../meals/meals.service';
@@ -32,6 +32,12 @@ export interface ScheduleList {
 export class ScheduleService {
 
   private date$ = new BehaviorSubject(new Date());
+  private section$ = new Subject();
+
+  selected$ = this.section$
+  .pipe(
+    tap((next: any) => this.store.set('selected', next))
+  );
 
   schedule$: Observable<ScheduleItem[]> = this.date$
   .pipe(
@@ -66,7 +72,6 @@ export class ScheduleService {
     tap((next: any) => this.store.set('schedule', next))
   )
 
-
   constructor(
     private store: Store,
     private authService: AuthService,
@@ -75,6 +80,10 @@ export class ScheduleService {
 
   updateDate(date: Date) {
     this.date$.next(date);
+  }
+
+  selectSection(event: any) {
+    this.section$.next(event);
   }
 
   private async getSchedule(startAt: number, endAt: number) {

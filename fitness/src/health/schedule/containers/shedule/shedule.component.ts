@@ -27,6 +27,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe(),
+      this.scheduleService.selected$.subscribe(),
     ];
   }
 
@@ -36,5 +37,10 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
   changeDate(date: Date) {
     this.scheduleService.updateDate(date);
+  }
+
+  changeSection(event: any) {
+    console.log(event)
+    this.scheduleService.selectSection(event);
   }
 }
