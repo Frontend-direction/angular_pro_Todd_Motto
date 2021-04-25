@@ -5,7 +5,7 @@ import { Store } from 'store';
 import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
 
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { tap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { tap, map, switchMap, withLatestFrom, takeUntil } from 'rxjs/operators';
 
 import { Meal } from '../meals/meals.service';
 import { Workout } from '../workout/workout.service';
@@ -30,7 +30,7 @@ export interface ScheduleList {
 
 @Injectable()
 export class ScheduleService {
-
+  private uid = '';
   private date$ = new BehaviorSubject(new Date());
   private section$ = new Subject();
   private itemList$ = new Subject();
@@ -90,19 +90,19 @@ export class ScheduleService {
 
     }),
     switchMap(({ startAt, endAt }: any) => this.getSchedule(startAt, endAt)),
-    // map((data: any) => {
-    //   console.log(data)
-    //   const mapped: ScheduleList = {};
+    map((data: any) => {
+      const mapped: ScheduleList = {};
+      for (const prop of data) {
+        if (!mapped[prop.section]) {
+          mapped[prop.section] = prop;
+        } else {
+          mapped[prop.section] = {...mapped[prop.section], ...prop}
+        }
+      }
 
-    //   for (const prop of data) {
-    //     if (!mapped[prop.section]) {
-    //       mapped[prop.section] = prop;
-    //     }
-    //   }
+      return mapped;
 
-    //   return mapped;
-
-    // }),
+    }),
     tap((next: any) => this.store.set('schedule', next))
   )
 
@@ -110,7 +110,11 @@ export class ScheduleService {
     private store: Store,
     private authService: AuthService,
     private db: AngularFireDatabase,
-  ) {}
+  ) {
+    this.store.select('user').subscribe(({ uid }) => {
+      this.uid = uid;
+    })
+  }
 
   updateItems(items: string[]) {
     this.itemList$.next(items);
@@ -125,18 +129,15 @@ export class ScheduleService {
   }
 
   private async createSection(payload: ScheduleItem) {
-    const user = await this.authService.user;
-    return this.db.list(`schedule/${user.uid}`).push(payload);
+    return this.db.list(`schedule/${this.uid}`).push(payload);
   }
 
   private async updateSection(key: string, payload: ScheduleItem) {
-    const user = await this.authService.user;
-    return this.db.object(`schedule/${user.uid}/${key}`).update(payload);
+    return this.db.object(`schedule/${this.uid}/${key}`).update(payload);
   }
 
-  private async getSchedule(startAt: number, endAt: number) {
-    const user = await this.authService.user;
-    return this.db.list(`schedule/${user.uid}`, 
-    ref => ref.orderByChild('timestamp').startAt(startAt).endAt(endAt)).snapshotChanges()
+  private getSchedule(startAt: number, endAt: number) {
+    return this.db.list(`schedule/${this.uid}`, 
+    ref => ref.orderByChild('timestamp').startAt(startAt).endAt(endAt)).valueChanges()
   }
 }

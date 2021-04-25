@@ -9,6 +9,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 // Shared
 import { SharedModule } from './shared/shared.module';
+import { firebaseConfig } from './config';
 
 export const ROUTES: Routes = [
   {
@@ -28,16 +29,6 @@ export const ROUTES: Routes = [
     ]
   }
 ];
-
-export const firebaseConfig = {
-  apiKey: "AIzaSyC0Al29L1oI9OyRwS8nINnEVXipEZSWx1E",
-  authDomain: "fitness-app-58c0b.firebaseapp.com",
-  databaseURL: "https://fitness-app-58c0b-default-rtdb.firebaseio.com",
-  projectId: "fitness-app-58c0b",
-  storageBucket: "fitness-app-58c0b.appspot.com",
-  messagingSenderId: "304258463680",
-  appId: "1:304258463680:web:85118a28efea17ac61fa25"
-};
 
 @NgModule({
   imports: [
